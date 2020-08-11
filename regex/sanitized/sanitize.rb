@@ -7,17 +7,28 @@ def sanitize
 
     # rule 1: if there is colon or hypen then remove space on either side of it
     #content = content.gsub(/\s*[:–-]\s*/, ":")
+    #rule 1: remove different symbol
     content = content.gsub(/\s\–\s/,"-")
+    #rule 2:remove brackets
     content = content.gsub(/\(|\)/, "")
+    #rule 3: remove space before colon
     content = content.gsub(/\s\:/,":")
+    #rule 4: remove space after colon
     content = content.gsub(/\:\s/,":""")
+    #rule 5: put space after book name
     content = content.gsub(/(#{$books})(\d{1,2})/, '\1 \2')
+    #rule 6: replace "," into "-"
     content = content.gsub(/\,/,"-")
+    #rule 7: remove after "-"
     content = content.gsub(/\-\s/," ")
+    #rule 8: remove space before "-"
     content = content.gsub(/\s\-/," ")
+    #rule 9: remove ";" before space
     content = content.gsub(/\s\;/," ")
+    #rule 10: replace ";" into ","
     content = content.gsub(/\;/,",")
-    content = content.gsub(/\I\s/,"1"" ")
+    #rule 11: replace "I" into numeric
+    content = content.gsub(/I(\s\w+\s\d+:)/, '1\1')
     
     File.write("./regex/sanitized/#{fname}", content)
   end
