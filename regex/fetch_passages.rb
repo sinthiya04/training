@@ -26,7 +26,7 @@ def sanitize_passages
     File.write("./regex/fetch_verse/#{fname}", verses)
   end
 end
-p sanitize_passages
+
 
 def fetch_from_bible_gateway(ref)
   uri = URI.parse($url_template % {ref: ref})
@@ -45,7 +45,7 @@ def fetch_passages
     puts "Reading file #{filename}"
     references = content.scan(/\w+ \d+:\d+-\d+|\w+ \d+:\d+|I \w+ \d+:\d+-\d+|I \w+ \d+:\d+/).flatten
     puts "Found #{references.count} references..."
-    puts references if(filename == 'Inter_ENGHB_L1.txt' 'Inter_ENGHB_L2.txt' 'Inter_ENGHB_L3.txt')
+    #puts references if(filename == 'Inter_ENGHB_L1.txt' 'Inter_ENGHB_L2.txt' 'Inter_ENGHB_L3.txt')
     File.open("./regex/passages/#{filename}", "w") do |file|
       references.each do |rf|
         puts "#{rf}"
@@ -56,4 +56,4 @@ def fetch_passages
     puts "Completed file #{filename}"
   end
 end
-p fetch_passages
+fetch_passages
